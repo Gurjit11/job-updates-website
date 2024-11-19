@@ -35,13 +35,13 @@ function App() {
       );
       if (
         response.data.messages.error &&
-        response.data.messages.error.code === 503
+        response.data.messages.error === 503
       ) {
         console.error(
           "Error fetching updates:",
-          response.data.messages.error.message
+          response.data.messages.message
         );
-        alert(`Error: ${response.data.messages.error.message}`);
+        alert(`Error: ${response.data.messages.message}`);
       } else {
         console.log(
           "Response:",
