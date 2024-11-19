@@ -4,6 +4,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import openai
 from telegram import Bot, Update
+from waitress import serve
 
 # from telegram.ext import Dispatcher, MessageHandler, Filters
 import asyncio
@@ -102,4 +103,5 @@ def fetch_updates():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    serve(app, host="0.0.0.0", port=5000, threads=2)
