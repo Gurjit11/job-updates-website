@@ -30,7 +30,9 @@ function App() {
   const fetchUpdates = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:5000/fetch_updates");
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/fetch_updates`
+      );
       console.log(
         "Response:",
         response.data.messages.candidates[0].content.parts[0].text
