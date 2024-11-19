@@ -19,7 +19,8 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
 
 app = Flask(__name__)
-CORS(app)
+# Allow CORS from specific origin
+CORS(app, resources={r"/*": {"origins": "https://job-updates-website.vercel.app"}})
 
 
 # Coroutine to get updates from Telegram
