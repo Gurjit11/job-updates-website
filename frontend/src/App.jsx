@@ -33,21 +33,32 @@ function App() {
       const response = await axios.post(
         `${import.meta.env.VITE_API_KEY}/fetch_updates`
       );
-      console.log(
-        "Response:",
-        response.data.messages.candidates[0].content.parts[0].text
-      );
-      const rawText =
-        response.data.messages.candidates[0].content.parts[0].text;
-      const cleanedText = rawText
-        .trim() // Remove unnecessary whitespace
-        .replace(/```json|```/g, ""); // Remove ```json and ```
+      if (
+        response.data.messages.error &&
+        response.data.messages.error.code === 503
+      ) {
+        console.error(
+          "Error fetching updates:",
+          response.data.messages.error.message
+        );
+        alert(`Error: ${response.data.messages.error.message}`);
+      } else {
+        console.log(
+          "Response:",
+          response.data.messages.candidates[0].content.parts[0].text
+        );
+        const rawText =
+          response.data.messages.candidates[0].content.parts[0].text;
+        const cleanedText = rawText
+          .trim() // Remove unnecessary whitespace
+          .replace(/```json|```/g, ""); // Remove ```json and ```
 
-      const jsonArray = JSON.parse(cleanedText); // Parse JSON string to object
+        const jsonArray = JSON.parse(cleanedText); // Parse JSON string to object
 
-      setMessages(jsonArray);
+        setMessages(jsonArray);
+      }
     } catch (error) {
-      console.error("Error fetching updates:", error);
+      alert(`Error: ${error}`);
     }
     setLoading(false);
   };
